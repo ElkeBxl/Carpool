@@ -11,6 +11,7 @@ import { DestinationPage } from '../pages/destination/destination';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ParticipantsService } from './participants.service';
+import { MapService } from './map.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ParticipantsService } from './participants.service';
     StatusBar,
     SplashScreen,
     ParticipantsService,
+    MapService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
