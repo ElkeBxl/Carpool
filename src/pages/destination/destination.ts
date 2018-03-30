@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { MapService, MarkerType } from '../../app/map.service';
 
 @Component({
   selector: 'page-destination',
@@ -7,8 +8,21 @@ import { NavController } from 'ionic-angular';
 })
 export class DestinationPage {
 
-  constructor(public navCtrl: NavController) {
+  @ViewChild('map') mapElement: ElementRef;
 
+  constructor(public navCtrl: NavController, public mapService: MapService) { }
+
+  ionViewDidEnter(){
+    this.loadMap();
+    this.showDestination();
+  }
+ 
+  loadMap(){ 
+    this.mapService.initialize(this.mapElement);
+  }
+
+  showDestination() {
+    this.mapService.markAddress("Ordina Belgium", MarkerType.Destination);
   }
 
 }
