@@ -4,10 +4,10 @@ import { NavController } from 'ionic-angular';
 declare var google;
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-map',
+  templateUrl: 'map.html'
 })
-export class HomePage {
+export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
