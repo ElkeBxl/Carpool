@@ -1,5 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ParticipantsService } from '../../app/participants.service';
 
 declare var google;
 
@@ -12,11 +13,12 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
  
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    @Inject(ParticipantsService) public participantsService: ParticipantsService
+  ) { }
  
-  }
- 
-  ionViewDidLoad(){
+  ionViewDidEnter(){
     this.loadMap();
   }
  
@@ -31,7 +33,7 @@ export class MapPage {
         latLng = results[0].geometry.location;
         var marker = new google.maps.Marker({
           position: latLng,
-          map: this.map
+          map: this.map 
         });
         this.map.setCenter(latLng);
       } else {

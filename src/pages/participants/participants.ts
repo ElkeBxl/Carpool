@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
+import { ParticipantsService } from '../../app/participants.service';
 
 @Component({
   selector: 'page-participants',
@@ -7,13 +8,11 @@ import { NavController, AlertController } from 'ionic-angular';
 })
 export class ParticipantsPage {
 
-  participants: any[];
-
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
-    this.participants = [];
-    this.participants.push({ name: "Elke"});
-    this.participants.push({ name: "Ines"});
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public alertCtrl: AlertController,
+    @Inject(ParticipantsService) public participantsService: ParticipantsService
+  ) { }
 
   addParticipant() {
     let prompt = this.alertCtrl.create({
@@ -38,11 +37,15 @@ export class ParticipantsPage {
         },
         {
           text: 'Save',
-          handler: data => { this.participants.push(data); } 
+          handler: data => { this.participantsService.addParticipant(data); } 
         }
       ]
     });
     prompt.present();
+  }
+
+  getParticipants(): any[] {
+    return this.participantsService.getParticipants();
   }
 
 }

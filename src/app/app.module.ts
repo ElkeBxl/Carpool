@@ -10,6 +10,7 @@ import { DestinationPage } from '../pages/destination/destination';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ParticipantsService } from './participants.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    ParticipantsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
