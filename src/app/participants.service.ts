@@ -7,6 +7,8 @@ export class ParticipantsService {
 
     constructor() { 
         this.participants = [];
+        this.participants.push({ name: "Elke", address: "Dageraadstraat 47, 1000 Brussel" });
+        this.participants.push({ name: "Ines", address: "Brusselsesteenweg 254, 1980 Eppegem" });
     }
 
     addParticipant(participant: any): void {

@@ -11,26 +11,40 @@ declare var google;
 export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
+  private map: any;
+  private geocoder: any;
  
   constructor(
     public navCtrl: NavController,
     @Inject(ParticipantsService) public participantsService: ParticipantsService
-  ) { }
+  ) { 
+    this.geocoder = new google.maps.Geocoder();
+  }
  
   ionViewDidEnter(){
     this.loadMap();
+    this.showDestination();
+    this.showParticipants();
   }
  
   loadMap(){ 
     // Ordina coordinates
     let latLng = new google.maps.LatLng(51.0517983,4.4519565);
+ 
+    // Create the actual map
+    let mapOptions = {
+      center: latLng,
+      zoom: 9,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }; 
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions); 
+  }
 
+  showDestination() {
     // Try to search for Ordina
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'address': "Ordina Belgium"}, (results, status) => {
+    this.geocoder.geocode({'address': "Ordina Belgium"}, (results, status) => {
       if (status === 'OK') {
-        latLng = results[0].geometry.location;
+        let latLng = results[0].geometry.location;
         var marker = new google.maps.Marker({
           position: latLng,
           map: this.map 
@@ -40,15 +54,24 @@ export class MapPage {
         console.log("Failed to find address");
       }
     });
- 
-    // Create the actual map
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }; 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions); 
+  }
 
+  showParticipants() {
+    this.participantsService.getParticipants().forEach((participant, index) => {
+      if (participant.address) {
+        this.geocoder.geocode({'address': participant.address}, (results, status) => {
+          if (status === 'OK') {
+            let latLng = results[0].geometry.location;
+            var marker = new google.maps.Marker({
+              position: latLng,
+              map: this.map 
+            });
+          } else {
+            console.log("Failed to find address:", participant.address);
+          }
+        });
+      }
+    });
   }
   
 }
