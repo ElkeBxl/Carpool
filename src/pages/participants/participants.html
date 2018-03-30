@@ -7,5 +7,14 @@
 </ion-header>
 
 <ion-content>
-  Participants
+  <button ion-button full default icon-start (click)="addParticipant()">
+    <ion-icon name="add"></ion-icon>
+    New participant
+  </button>
+  <ion-list padding>
+    <ion-item *ngFor="let participant of participants">
+      <ion-icon name="woman"></ion-icon>
+      {{participant.name}}
+    </ion-item>
+  </ion-list>
 </ion-content>
