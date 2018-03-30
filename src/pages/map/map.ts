@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ParticipantsService } from '../../app/participants.service';
+import { Participant } from '../../app/participant';
 
 declare var google;
 
@@ -46,6 +47,7 @@ export class MapPage {
       if (status === 'OK') {
         let latLng = results[0].geometry.location;
         var marker = new google.maps.Marker({
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
           position: latLng,
           map: this.map 
         });
@@ -63,6 +65,7 @@ export class MapPage {
           if (status === 'OK') {
             let latLng = results[0].geometry.location;
             var marker = new google.maps.Marker({
+              icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
               position: latLng,
               map: this.map 
             });

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { ParticipantsService } from '../../app/participants.service';
+import { Participant } from '../../app/participant';
 
 @Component({
   selector: 'page-participants',
@@ -44,7 +45,7 @@ export class ParticipantsPage {
     prompt.present();
   }
 
-  getParticipants(): any[] {
+  getParticipants(): Participant[] {
     return this.participantsService.getParticipants();
   }
 
