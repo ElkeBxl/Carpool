@@ -6,6 +6,22 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-Destination
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" stacked>Name</ion-label>
+      <ion-input placeholder="Name of the destination"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Address</ion-label>
+      <ion-input placeholder="Address of the destination"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button full default icon-start>
+        <ion-icon name="checkmark"></ion-icon>
+        Save
+      </button>
+    </ion-item>
+  </ion-list>
+  <div id="map" #map></div>
 </ion-content>
