@@ -17,6 +17,8 @@ export class MapService {
 
     private addresses: any[] = [];
 
+    private markers: any[] = [];
+
     private origin: any;
 
     private destination: any;
@@ -43,6 +45,8 @@ export class MapService {
         }; 
         this.map = new google.maps.Map(mapElement.nativeElement, mapOptions); 
         this.directionsDisplay.setMap(this.map);
+        this.directionsDisplay.setDirections(null);
+        this.addresses = [];
     }
 
     public markAddress(address: string, markerType: MarkerType) {
@@ -52,16 +56,21 @@ export class MapService {
                 let address = results[0];
                 this.persistAddress(address, markerType);
                 let latLng = address.geometry.location;
-                new google.maps.Marker({
+                let marker = new google.maps.Marker({
                     icon: this.getIcon(markerType),
                     position: latLng,
                     map: this.map 
                 });
+                this.markers.push(marker);
                 this.map.setCenter(latLng);
             } else {
                 console.log("Failed to find address");
             }
         });
+    }
+
+    public clearMarkers() {
+        this.markers.forEach(marker => marker.setMap(null));
     }
 
     public markRoute() {       
@@ -74,9 +83,8 @@ export class MapService {
                 departureTime: new Date(Date.now()),
                 trafficModel: 'optimistic'
             },
-            //optimizeWaypoints: true
+            optimizeWaypoints: true
         };
-        console.log(this.addresses);
         this.directionsService.route(request, (result, status) => {
             if (status == 'OK') {
                 this.directionsDisplay.setDirections(result);

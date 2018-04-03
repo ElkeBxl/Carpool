@@ -47,6 +47,7 @@ export class MapPage {
   }
 
   showRoute() {
+    this.mapService.clearMarkers();
     this.mapService.markRoute();
   }
   
