@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MapService, MarkerType } from '../../app/map.service';
+import { ParticipantsService } from '../../app/participants.service';
 
 @Component({
   selector: 'page-destination',
@@ -10,7 +11,11 @@ export class DestinationPage {
 
   @ViewChild('map') mapElement: ElementRef;
 
-  constructor(public navCtrl: NavController, public mapService: MapService) { }
+  constructor(
+    public navCtrl: NavController, 
+    @Inject(MapService) public mapService: MapService,
+    @Inject(ParticipantsService) public participantsService: ParticipantsService
+  ) { }
 
   ionViewDidEnter(){
     this.loadMap();
@@ -22,7 +27,8 @@ export class DestinationPage {
   }
 
   showDestination() {
-    this.mapService.markAddress("Ordina Belgium", MarkerType.Destination);
+    let address = this.participantsService.getDestination();
+    this.mapService.markAddress(address, MarkerType.Destination);
   }
 
 }

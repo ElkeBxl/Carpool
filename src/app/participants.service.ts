@@ -8,7 +8,7 @@ export class ParticipantsService {
 
     constructor() { 
         this.participants = [];
-        this.participants.push(new Participant({ name: "Elke", address: "Dageraadstraat 47, 1000 Brussel" }));
+        //this.participants.push(new Participant({ name: "Elke", address: "Dageraadstraat 47, 1000 Brussel" }));
         this.participants.push(new Participant({ name: "Ines", address: "Brusselsesteenweg 254, 1980 Eppegem" }));
     }
 
@@ -18,6 +18,14 @@ export class ParticipantsService {
 
     getParticipants(): Participant[] {
         return this.participants;
+    }
+
+    getDestination(): string {
+        return "Ordina Belgium";
+    }
+
+    getOrigin(): string {
+        return "Dageraadstraat 47, 1000 Brussel";
     }
 
 }

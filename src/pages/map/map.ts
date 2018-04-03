@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild, Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ParticipantsService } from '../../app/participants.service';
-import { Participant } from '../../app/participant';
 import { MapService, MarkerType } from '../../app/map.service';
 
 @Component({
@@ -11,7 +10,6 @@ import { MapService, MarkerType } from '../../app/map.service';
 export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
-  private map: any;
  
   constructor(
     public navCtrl: NavController,
@@ -22,6 +20,7 @@ export class MapPage {
   ionViewDidEnter(){
     this.loadMap();
     this.showDestination();
+    this.showOrigin();
     this.showParticipants();
   }
  
@@ -30,7 +29,13 @@ export class MapPage {
   }
 
   showDestination() {
-    this.mapService.markAddress("Ordina Belgium", MarkerType.Destination);
+    let destination = this.participantsService.getDestination();
+    this.mapService.markAddress(destination, MarkerType.Destination);
+  }
+
+  showOrigin() {
+    let origin = this.participantsService.getOrigin();
+    this.mapService.markAddress(origin, MarkerType.Origin);
   }
 
   showParticipants() {
@@ -39,6 +44,10 @@ export class MapPage {
         this.mapService.markAddress(participant.address, MarkerType.Participant);
       }
     });
+  }
+
+  showRoute() {
+    this.mapService.markRoute();
   }
   
 }

@@ -10,14 +10,14 @@
   <ion-list>
     <ion-item>
       <ion-label color="primary" stacked>Name</ion-label>
-      <ion-input placeholder="Name of the destination"></ion-input>
+      <ion-input placeholder="Name of the destination" [(ngModel)]="name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Address</ion-label>
-      <ion-input placeholder="Address of the destination"></ion-input>
+      <ion-input placeholder="Address of the destination" [(ngModel)]="address"></ion-input>
     </ion-item>
     <ion-item>
-      <button ion-button full default icon-start>
+      <button ion-button full default icon-start (click)="showDestination()">
         <ion-icon name="checkmark"></ion-icon>
         Save
       </button>
