@@ -1,10 +1,11 @@
-export class Participant {
+import { Entity } from "./entity";
 
-    name: string;
+export class Participant extends Entity {
 
-    address: string;
+    hasCar: boolean;
 
     public constructor(data?:Partial<Participant>) {
+        super();
         Object.assign(this, data);
     }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Participant } from './participant';
+import { Entity } from './entity';
 
 @Injectable()
 export class ParticipantsService {
@@ -22,12 +23,12 @@ export class ParticipantsService {
         return this.participants;
     }
 
-    getDestination(): string {
-        return "Ordina Belgium";
+    getDestination(): Entity {
+        return new Entity({ name: "Workworkworkwork", address: "Ordina Belgium" });
     }
 
-    getOrigin(): string {
-        return "Dageraadstraat 47, 1000 Brussel";
+    getOrigin(): Entity {
+        return new Entity({ name: "Home", address: "Dageraadstraat 47, 1000 Brussel" });
     }
 
 }

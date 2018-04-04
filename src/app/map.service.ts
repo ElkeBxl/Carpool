@@ -1,4 +1,5 @@
 import { Injectable, ElementRef } from "@angular/core";
+import { Entity } from "./entity";
 
 declare var google;
 
@@ -49,9 +50,9 @@ export class MapService {
         this.addresses = [];
     }
 
-    public markAddress(address: string, markerType: MarkerType) {
+    public markAddress(entity: Entity, markerType: MarkerType) {
         // Try to search for Ordina
-        this.geocoder.geocode({'address': address}, (results, status) => {
+        this.geocoder.geocode({ 'address': entity.address }, (results, status) => {
             if (status === 'OK') {
                 let address = results[0];
                 this.persistAddress(address, markerType);

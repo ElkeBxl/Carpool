@@ -41,7 +41,7 @@ export class MapPage {
   showParticipants() {
     this.participantsService.getParticipants().forEach((participant, index) => {
       if (participant.address) {
-        this.mapService.markAddress(participant.address, MarkerType.Participant);
+        this.mapService.markAddress(participant, MarkerType.Participant);
       }
     });
   }

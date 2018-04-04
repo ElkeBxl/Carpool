@@ -11,11 +11,19 @@ export class DestinationPage {
 
   @ViewChild('map') mapElement: ElementRef;
 
+  address: string = "";
+
+  name: string = "";
+
   constructor(
     public navCtrl: NavController, 
     @Inject(MapService) public mapService: MapService,
     @Inject(ParticipantsService) public participantsService: ParticipantsService
-  ) { }
+  ) { 
+    let entity = this.participantsService.getDestination();
+    this.name = entity.name;
+    this.address = entity.address;
+  }
 
   ionViewDidEnter(){
     this.loadMap();
@@ -27,8 +35,8 @@ export class DestinationPage {
   }
 
   showDestination() {
-    let address = this.participantsService.getDestination();
-    this.mapService.markAddress(address, MarkerType.Destination);
+    let destination = this.participantsService.getDestination();
+    this.mapService.markAddress(destination, MarkerType.Destination);
   }
 
 }
