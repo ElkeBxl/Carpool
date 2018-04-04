@@ -29,7 +29,7 @@ export class MapPage {
   }
 
   showDestination() {
-    let destination = this.participantsService.getDestination();
+    let destination = this.participantsService.destination;
     this.mapService.markAddress(destination, MarkerType.Destination);
   }
 
