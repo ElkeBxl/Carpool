@@ -12,12 +12,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ParticipantsService } from './participants.service';
 import { MapService } from './map.service';
+import { EditParticipantPage } from '../pages/edit-participant/edit-participant';
 
 @NgModule({
   declarations: [
     MyApp,
     DestinationPage,
     ParticipantsPage,
+    EditParticipantPage,
     MapPage,
     TabsPage
   ],
@@ -30,6 +32,7 @@ import { MapService } from './map.service';
     MyApp,
     DestinationPage,
     ParticipantsPage,
+    EditParticipantPage,
     MapPage,
     TabsPage
   ],

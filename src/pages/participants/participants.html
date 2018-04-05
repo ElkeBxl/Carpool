@@ -11,10 +11,10 @@
     <ion-icon name="add"></ion-icon>
     New participant
   </button>
-  <ion-list padding>
-    <ion-item *ngFor="let participant of getParticipants()">
+  <ion-list>
+    <button ion-item *ngFor="let participant of getParticipants()" (click)="viewParticipant($event, participant)">
       <ion-icon name="woman"></ion-icon>
       {{participant.name}}
-    </ion-item>
+    </button>
   </ion-list>
 </ion-content>

@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { ParticipantsService } from '../../app/participants.service';
 import { Participant } from '../../app/participant';
+import { EditParticipantPage } from '../edit-participant/edit-participant';
 
 @Component({
   selector: 'page-participants',
@@ -47,6 +48,10 @@ export class ParticipantsPage {
 
   getParticipants(): Participant[] {
     return this.participantsService.getParticipants();
+  }
+
+  viewParticipant($event, participant): void {
+    this.navCtrl.push(EditParticipantPage, participant);
   }
 
 }
