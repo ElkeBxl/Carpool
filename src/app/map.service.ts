@@ -79,34 +79,33 @@ export class MapService {
     }
 
     public markRoute() {       
-        let request = {
-            destinations: this.addresses.map(x => x.formatted_address).concat(this.destination.formatted_address, this.origin.formatted_address),// [this.destination.formatted_address],
-            origins: this.addresses.map(x => x.formatted_address).concat(this.destination.formatted_address, this.origin.formatted_address),
-            drivingOptions: {
-                departureTime: new Date(Date.now()),
-                trafficModel: 'optimistic'
-            },
-            travelMode: 'DRIVING'
-        };
-        console.log(request);
-        this.distanceMatrixService.getDistanceMatrix(request, (response, status) => { console.log(JSON.stringify(response)) });
-
         // let request = {
-        //     origin: this.origin.formatted_address,
-        //     destination: this.destination.formatted_address,
-        //     waypoints: this.addresses.map(x => ({ location: x.formatted_address })),
-        //     travelMode: 'DRIVING',
+        //     destinations: this.addresses.map(x => x.formatted_address).concat(this.destination.formatted_address, this.origin.formatted_address),// [this.destination.formatted_address],
+        //     origins: this.addresses.map(x => x.formatted_address).concat(this.destination.formatted_address, this.origin.formatted_address),
         //     drivingOptions: {
         //         departureTime: new Date(Date.now()),
         //         trafficModel: 'optimistic'
         //     },
-        //     optimizeWaypoints: true
+        //     travelMode: 'DRIVING'
         // };
-        // this.directionsService.route(request, (result, status) => {
-        //     if (status == 'OK') {
-        //         this.directionsDisplay.setDirections(result);
-        //     }
-        // })
+        // console.log(request);
+        // this.distanceMatrixService.getDistanceMatrix(request, (response, status) => { console.log(JSON.stringify(response)) });
+        let request = {
+            origin: this.origin.formatted_address,
+            destination: this.destination.formatted_address,
+            waypoints: this.addresses.map(x => ({ location: x.formatted_address })),
+            travelMode: 'DRIVING',
+            drivingOptions: {
+                departureTime: new Date(Date.now()),
+                trafficModel: 'optimistic'
+            },
+            optimizeWaypoints: true
+        };
+        this.directionsService.route(request, (result, status) => {
+            if (status == 'OK') {
+                this.directionsDisplay.setDirections(result);
+            }
+        })
     }
 
     public calculateRoute(distances:any): string[] {
