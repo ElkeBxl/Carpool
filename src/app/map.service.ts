@@ -28,13 +28,17 @@ export class MapService {
 
     private directionsDisplay: any;
 
+    private distanceMatrixService: any;
+
     public constructor() {
-        this.geocoder = new google.maps.Geocoder();
-        this.directionsService = new google.maps.DirectionsService();
-        this.directionsDisplay = new google.maps.DirectionsRenderer();
     }
 
     public initialize(mapElement: ElementRef) {    
+        this.geocoder = new google.maps.Geocoder();
+        this.directionsService = new google.maps.DirectionsService();
+        this.directionsDisplay = new google.maps.DirectionsRenderer();
+        this.distanceMatrixService = new google.maps.DistanceMatrixService();
+
         // Ordina coordinates
         let latLng = new google.maps.LatLng(51.0517983,4.4519565);
      
@@ -46,7 +50,7 @@ export class MapService {
         }; 
         this.map = new google.maps.Map(mapElement.nativeElement, mapOptions); 
         this.directionsDisplay.setMap(this.map);
-        this.directionsDisplay.setDirections(null);
+        //this.directionsDisplay.setDirections(null);
         this.addresses = [];
     }
 
@@ -76,21 +80,45 @@ export class MapService {
 
     public markRoute() {       
         let request = {
-            origin: this.origin.formatted_address,
-            destination: this.destination.formatted_address,
-            waypoints: this.addresses.map(x => ({ location: x.formatted_address })),
-            travelMode: 'DRIVING',
+            destinations: this.addresses.map(x => x.formatted_address).concat(this.destination.formatted_address, this.origin.formatted_address),// [this.destination.formatted_address],
+            origins: this.addresses.map(x => x.formatted_address).concat(this.destination.formatted_address, this.origin.formatted_address),
             drivingOptions: {
                 departureTime: new Date(Date.now()),
                 trafficModel: 'optimistic'
             },
-            optimizeWaypoints: true
+            travelMode: 'DRIVING'
         };
-        this.directionsService.route(request, (result, status) => {
-            if (status == 'OK') {
-                this.directionsDisplay.setDirections(result);
-            }
-        })
+        console.log(request);
+        this.distanceMatrixService.getDistanceMatrix(request, (response, status) => { console.log(JSON.stringify(response)) });
+
+        // let request = {
+        //     origin: this.origin.formatted_address,
+        //     destination: this.destination.formatted_address,
+        //     waypoints: this.addresses.map(x => ({ location: x.formatted_address })),
+        //     travelMode: 'DRIVING',
+        //     drivingOptions: {
+        //         departureTime: new Date(Date.now()),
+        //         trafficModel: 'optimistic'
+        //     },
+        //     optimizeWaypoints: true
+        // };
+        // this.directionsService.route(request, (result, status) => {
+        //     if (status == 'OK') {
+        //         this.directionsDisplay.setDirections(result);
+        //     }
+        // })
+    }
+
+    public calculateRoute(distances:any): string[] {
+        let result:string[] = [];
+
+        distances['rows'].forEach((row, rowIndex) => {
+            row['elements'].forEach((element, elementIndex) => {
+                
+            });
+        });
+
+        return result;
     }
 
     private persistAddress(address: string, markerType: MarkerType): void {        

@@ -9,7 +9,8 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },
   "dependencies": {
     "@angular/animations": "5.2.9",
@@ -33,7 +34,13 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
-    "typescript": "~2.6.2"
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "^5.0.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.0.5",
+    "ts-node": "^5.0.1",
+    "typescript": "~2.6.2",
+    "typings": "^2.1.1"
   },
   "description": "An Ionic project"
 }
